@@ -1,0 +1,115 @@
+<!-- Chess_App/templates/Chess_App/home.html -->
+
+{% extends 'base_generic.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>  
+
+<div class="current-turn-wrapper">
+    <p id="current-turn">Current Turn: {{ current_turn }}</p>
+</div>
+
+<!-- Chessboard -->
+<table id="chessboard" class="table table-bordered">
+    {% for row in rows %}
+    <tr>
+        <th class="row-label">{{ forloop.revcounter }}</th>
+        {% for name, value in row.items %}
+        <td id="{{ name }}">
+            {{ value|safe }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+        <th class="corner"></th>
+        {% for label in "abcdefgh" %}
+        <th class="column-label">{{ label }}</th>
+        {% endfor %}
+    </tr>
+</table>
+
+<!-- Controls for chess moves and resignation -->
+<div class="controls">
+    <form id="move-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_move">Move (e.g., e2e4):</label>
+            <input type="text" name="move" id="id_move" maxlength="10" required>    
+        </div>
+        <div class="btn-group" role="group" aria-label="Chess Actions">
+            <button type="submit" class="btn btn-primary">Move</button>
+            <button type="button" class="btn btn-danger" onclick="resignGame()">Resign</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    const ws_scheme = window.location.protocol === "https:" ? "wss" : "ws"; 
+    const gameId = "{{ game.id }}";
+    const gameSocket = new WebSocket(
+        ws_scheme + '://' + window.location.host + '/ws/game/' + gameId + '/'
+    );
+
+    gameSocket.onopen = function(e) {
+        console.log('Game socket connected');
+    };
+
+    gameSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if(data.type === 'game_update') {
+            updateBoard(data.game);
+        } else if(data.type === 'error') {
+            alert(data.message);
+        }
+    };
+
+    function updateBoard(gameState) {
+        const boardData = gameState.board;
+        for (let row of boardData) {
+            for (let square in row) {
+                document.getElementById(square).innerHTML = row[square];
+            }
+        }
+        document.getElementById('current-turn').innerText = 'Current Turn: ' + gameState.current_turn;
+        if (gameState.status === 'completed') {
+            let outcomeText;
+            if(gameState.outcome === 'white_win' || gameState.outcome === 'black_win') {
+                outcomeText = gameState.winner ? `${gameState.winner} wins` : 'Winner Unknown';
+            } else if(gameState.outcome === 'tie') {
+                outcomeText = 'Tie';
+            } else {
+                outcomeText = 'Game Over';
+            }
+            alert('Game Over. Outcome: ' + outcomeText);
+            window.location.href = "{% url 'new_game_screen' %}";
+        }
+    }
+
+    gameSocket.onclose = function(e) {
+        console.error('Game socket closed unexpectedly');
+    };
+
+    document.getElementById('move-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const moveInput = document.getElementById('id_move').value;
+        gameSocket.send(JSON.stringify({
+            'type': 'move', // Correct key
+            'move': moveInput
+        }));
+        document.getElementById('id_move').value = '';
+    });
+
+    function resignGame() {
+        gameSocket.send(JSON.stringify({'type': 'resign'})); 
+    }
+</script>
+
+<link rel="stylesheet" href="{% static 'chessboard.css' %}">
+{% endblock %}

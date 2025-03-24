@@ -1,0 +1,335 @@
+/* Chess_App/static/css/chessboard.css */
+
+/* Body styling */
+body {
+  font-family: 'Source Serif 4', serif !important;
+  background-color: #fffaf0 !important;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+/* Center the current turn text */
+.current-turn-wrapper {
+  text-align: center;
+  margin-top: 0px; 
+  margin-bottom: 20px; 
+}
+
+/* Table styling for the chessboard */
+table#chessboard {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  border-collapse: collapse;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  border: 2px solid black; 
+  
+}
+
+/* Chessboard square (td) styling */
+table#chessboard td {
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 25px;
+}
+
+/* Row labels (th) on the left side */
+table#chessboard th.row-label {
+  width: 25px;
+  height: 25px;
+  background-color: tan;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  border-right: 2px solid black;
+}
+
+/* Column labels (th) at the bottom */
+table#chessboard th.column-label {
+  width: 25px;
+  height: 25px;
+  background-color: tan;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px 0;
+  border-top: 2px solid black;
+}
+
+/* Fix the white box at the bottom-left corner */
+table#chessboard th.corner {
+  width: 25px;
+  height: 25px;
+  background-color: tan;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+/* Alternating background colors for chessboard squares */
+table#chessboard tr:nth-child(even) td:nth-child(even),
+table#chessboard tr:nth-child(odd) td:nth-child(odd) {
+  background-color: chocolate; 
+}
+
+table#chessboard tr:nth-child(even) td:nth-child(odd),
+table#chessboard tr:nth-child(odd) td:nth-child(even) {
+  background-color: tan;
+}
+
+
+/* Controls styling */
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.controls form {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.controls input {
+  width: 120px;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.controls button {
+  padding: 5px 15px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+.controls button:focus {
+  outline: none;
+  background-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive Chessboard */
+@media (max-width: 768px) {
+  table#chessboard td,
+  table#chessboard th.row-label,
+  table#chessboard th.column-label,
+  table#chessboard th.corner {
+      width: 40px;
+      height: 40px;
+      font-size: 30px;
+  }
+}
+
+/* Ensure h1 is centered */
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+/* Message container styling (if used) */
+.message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: block;
+  width: auto;
+  padding: 10px;
+  background-color: #f8d7da;
+  text-align: center;
+  color: black;
+  border-radius: 5px;
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
+  100% { opacity: 1; transform: translateY(0) translateX(-50%); }
+}
+
+
+/* Profile container styling */
+.profile-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f4eb; 
+  border-radius: 8px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+/* Profile image styling */
+.profile-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover; 
+  border-radius: 8px; 
+  margin-right: 20px; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* Profile text styling */
+.profile-info {
+  flex: 1; 
+  text-align: left; 
+  font-size: 18px; 
+  line-height: 1.6; 
+  color: #333; 
+}
+
+/* Add heading styling */
+.profile-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* History of Chess section styling */
+.history-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f4eb; 
+  border-radius: 8px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Text styling for history */
+.history-text {
+  flex: 1;
+  text-align: justify; 
+  font-size: 18px;
+  line-height: 1.8;
+  padding: 0 20px;
+  color: #333;
+}
+
+/* Add heading styling */
+.history-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Flex container for the chess rules section */
+.rules-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  background-color: #f8f4eb; 
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rules-info {
+  flex: 1; 
+  text-align: left; 
+  font-size: 18px; 
+  line-height: 1.6; 
+  color: #333; 
+}
+
+/* Text styling for rules */
+.rules-text {
+  flex: 1;
+  text-align: justify; 
+  font-size: 16px; 
+  line-height: 1.8;
+  padding: 0 20px;
+  color: #333;
+  font-family: 'Source Serif 4', serif; 
+}
+
+/* Ensure list items have proper bullets */
+.rules-text ul {
+  list-style-type: disc; 
+  padding-left: 40px; 
+}
+
+.rules-text ul li {
+  margin-bottom: 20px; 
+  font-size: 20px;
+  color: #333;
+}
+
+/* Explicit bullet styling */
+.rules-text ul li::marker {
+  font-size: 22px;
+  color: #333;
+}
+
+/* Add heading styling */
+.rules-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  background-color: #f8f4eb; 
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-text {
+  flex: 1;
+  text-align: justify; 
+  font-size: 16px; 
+  line-height: 1.8;
+  padding: 0 20px;
+  color: #333;
+  font-family: 'Source Serif 4', serif; 
+}
+
+.login-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-info {
+  flex: 1; 
+  text-align: left; 
+  font-size: 18px; 
+  line-height: 1.6; 
+  color: #333; 
+  
+}

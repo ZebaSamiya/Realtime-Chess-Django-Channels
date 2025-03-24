@@ -1,0 +1,18 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}About Me{% endblock %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+
+{% block content %}
+<h2 class="profile-title">About Me</h2>
+<div class="profile-container">
+    <img src="{% static 'profile.jpg' %}" alt="Zeba Samiya" width = "200" height = "200" class="profile-image">
+    <div class="profile-info">
+      <p>My name is Zeba Samiya, I have a strong passion for data science and cybersecurity. My interest lies in merging these two fields, exploring how data science can enhance cybersecurity by analyzing large datasets to predict threats and build stronger defenses. The goal is to become a data scientist, applying my skills to make a positive impact in the cybersecurity world.</p>
+      <p>Outside of academics, I enjoy painting and travelling. Painting allows me to express myself creatively in different ways, while travelling allows me to see other cultures and gain new perspectives. Always ready to learn and grow at any moment in life, whether personally or professionally, I look forward to making a meaningful contribution in the tech world through my passion for data science and cybersecurity.</p>
+  </div>
+</div>
+<link rel="stylesheet" href="{% static 'chessboard.css' %}">
+{% endblock %}
