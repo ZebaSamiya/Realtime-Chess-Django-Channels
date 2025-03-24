@@ -7,15 +7,15 @@ This repository contains two projects that implement a full-stack, multiplayer c
 ## 📁 Repository Structure
 
 - **Realtime-Chess-Django-Channels/**
-  - 📂 **Multiplayer-chess-django/** → AJAX Polling version  
+  - 📂 **Multiplayer-chess-ajax/** → AJAX Polling version  
   - 📂 **Realtime-chess-channels/** → WebSockets version
 
 
 ---
 
-## Project 2: Multiplayer Chess Django
+## Project 2: Multiplayer Chess Ajax
 
-**Path:** `Multiplayer-chess-django`
+**Path:** `Multiplayer-chess-ajax`
 
 ### Overview
 A multiplayer chess web application built with Django, leveraging SSR and AJAX for dynamic updates. The game logic and move validation are powered by the `python-chess` library. The app supports user sessions, game state persistence, and game history.
