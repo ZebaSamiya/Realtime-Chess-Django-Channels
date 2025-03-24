@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}Chess Rules{% endblock %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+
+{% block content %}
+<h2 class="rules-title">Chess Rules</h2>
+<div class="rules-container">
+    <div class="rules-text">
+        <ul>
+          <li><strong>Pawn:</strong> In addition to moving one square forward (or two on their first), pawns have a special move called <strong>en passant</strong>, whereby they can capture an opponent pawn which moved two squares forward from its starting position. Additionally, when pawns land on the opponent's back rank, they are permitted to promote into any piece except for the king, of course. Typically, the queen will be the piece of choice.</li>
+          <li><strong>Rook:</strong> The rook constitutes a formidable piece due to its capacity to dominate complete ranks and files. It serves a significant function in the maneuver known as castling, a unique operation in which the king and rook interchange their positions, enhancing the king's security and activating the rook for further involvement in the game.</li>
+          <li><strong>Knight:</strong> The knight is unique in its ability to jump over adjacent pieces, making it extremely useful when space is packed. Its "L"-shaped movement makes it easy to attack from different angles, which makes this piece one of the hardest to anticipate.</li>
+          <li><strong>Bishop:</strong> These are pieces that move diagonally over the board and for the entire game have to remain on squares of one color, either light or dark. Working together, two bishops of different colors can control all the squares on the chessboard and often prove particularly powerful in open positions.</li>
+          <li><strong>Queen:</strong> The queen is the most flexible and powerful piece in the game of chess; she can control large parts of the board. Combining the mobility of both the rook and bishop, she moves along any rank, file, or diagonal, making her an excellent attacker and defender alike.</li>
+          <li><strong>King:</strong> Despite the king's restriction to advancing only one square per turn, its protection constitutes the main goal of the game. The king participates in a unique maneuver known as castling, which serves to secure its safety in the initial phases of the game. Although the king lacks significant offensive capabilities, it assumes a more proactive role during the endgame when the number of remaining pieces diminishes.</li>
+        </ul>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'chessboard.css' %}">
+{% endblock %}

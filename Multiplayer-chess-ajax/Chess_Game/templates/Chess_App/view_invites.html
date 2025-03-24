@@ -1,0 +1,39 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Your Invites{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin-top: 50px;">
+    <h2 class="text-center mb-4">Your Invites</h2>
+    
+    <h4>Received Invites</h4>
+    {% if received_invites %}
+        <ul class="list-group mb-4">
+            {% for invite in received_invites %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    From: {{ invite.inviter.username }}
+                    <div>
+                        <a href="{% url 'accept_invite' invite.id %}" class="btn btn-success btn-sm">Accept</a>
+                        <a href="{% url 'decline_invite' invite.id %}" class="btn btn-danger btn-sm">Decline</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No received invites.</p>
+    {% endif %}
+    
+    <h4>Sent Invites</h4>
+    {% if sent_invites %}
+        <ul class="list-group">
+            {% for invite in sent_invites %}
+                <li class="list-group-item">
+                    To: {{ invite.invitee.username }} (Pending)
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No sent invites.</p>
+    {% endif %}
+</div>
+{% endblock %}

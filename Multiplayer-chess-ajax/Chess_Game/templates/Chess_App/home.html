@@ -1,0 +1,73 @@
+<!-- Chess_App/templates/Chess_App/home.html -->
+
+{% extends 'base_generic.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+
+<div class="current-turn-wrapper">
+    <p id="current-turn">Current Turn: {{ current_turn }}</p>
+</div>
+
+<!-- Chessboard -->
+<table id="chessboard" class="table table-bordered">
+    {% for row in rows %}
+    <tr>
+        <th class="row-label">{{ forloop.revcounter }}</th>
+        {% for name, value in row.items %}
+        <td id="{{ name }}">
+            {{ value|safe }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+        <th class="corner"></th>
+        {% for label in "abcdefgh" %}
+        <th class="column-label">{{ label }}</th>
+        {% endfor %}
+    </tr>
+</table>
+</div>
+
+
+<!-- Controls for chess moves and resignation -->
+<div class="controls">
+    <form method="POST" action="{% url 'make_move' %}" class="d-inline">
+        {% csrf_token %}
+        {{ chess_form.move.label_tag }} {{ chess_form.move }}
+        <button type="submit" name="action" value="move" class="btn btn-primary">Move</button>
+        <button type="submit" name="action" value="resign" class="btn btn-danger" formnovalidate>Resign</button>
+    </form>
+    
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    // Ajax polling to update game state every second
+    setInterval(function(){
+    fetch("{% url 'poll_game_state' %}")
+    .then(response => response.json())
+    .then(data => {
+        if(data.game){
+            // Update chessboard
+            let board = data.game.board;
+            for(let row of board){
+                for(let pos in row){
+                    document.getElementById(pos).innerHTML = row[pos];
+                }
+            }
+            document.getElementById('current-turn').innerText = 'Current Turn: ' + data.game.current_turn;
+        }
+    });
+}, 1000);  // Poll every 1 second
+
+</script>
+
+<link rel="stylesheet" href="{% static 'chessboard.css' %}">
+{% endblock %}

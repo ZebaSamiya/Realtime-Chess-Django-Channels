@@ -1,0 +1,38 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Custom CSS for styling -->
+<style>
+    .hero {
+        background-image: url("{% static 'images/chess_background.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        color: #fff;
+        text-align: center;
+    }
+    .hero h2 {
+        font-size: 3em;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px #000;
+    }
+    .hero p {
+        font-size: 1.5em;
+        margin-bottom: 40px;
+        text-shadow: 1px 1px #000;
+    }
+    .btn-custom {
+        padding: 15px 30px;
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="hero">
+    <h2>Welcome to Our Chess Club</h2>
+    <p>Explore the rules and history of chess through our platform.</p>
+    <a href="{% url 'user_login' %}" class="btn btn-primary btn-custom">Log In to Start Your Game!</a>
+</div>
+<link rel="stylesheet" href="{% static 'chessboard.css' %}">
+{% endblock %}
